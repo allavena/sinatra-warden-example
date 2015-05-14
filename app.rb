@@ -1,6 +1,6 @@
 require 'bundler'
 Bundler.require
-
+require 'json'
 # load the Database and User model
 require './model'
 
@@ -90,7 +90,42 @@ class SinatraWardenExample < Sinatra::Base
 
   get '/protected' do
     env['warden'].authenticate!
-
     erb :protected
   end
+
+
+  ##### JSON VERSION
+  post '/json/login' do
+    env['warden'].authenticate!
+    if session[:return_to].nil?
+      { login: 'failed'}.to_json
+    else
+      { login: 'success'}.to_json
+    end
+  end
+
+  get '/json/logout' do
+    env['warden'].raw_session.inspect
+    env['warden'].logout
+    { logout: 'success'}.to_json
+  end
+
+  # Unprotected access
+  get '/json' do
+    content_type :json
+    { hello: 'world'}.to_json
+  end
+
+  # Password protected:
+  get '/json/protected' do
+    content_type :json
+    # Note, if the authenticate fails, then
+    # the warden failure app takes over, (see Warden config above)
+    # and reroutes to request to POST auth/unauthenticated
+    # that's a redirect to the web form.
+    # For a proper JSON API, need another warden config.
+    env['warden'].authenticate!
+    { secret: 'stuff'}.to_json
+  end
+
 end

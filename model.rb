@@ -21,6 +21,19 @@ class User
       false
     end
   end
+
+  def self.create_first_user
+    if User.count == 0
+      @user = User.create(username: "admin")
+      @user.password = "admin"
+      @user.save
+    end
+  end
+
+  def self.get_first_user
+    self.create_first_user
+    User.first(id: 1)
+  end
 end
 
 # Tell DataMapper the models are done being defined
@@ -30,8 +43,4 @@ DataMapper.finalize
 DataMapper.auto_upgrade!
 
 # Create a test User
-if User.count == 0
-  @user = User.create(username: "admin")
-  @user.password = "admin"
-  @user.save
-end
+User.create_first_user

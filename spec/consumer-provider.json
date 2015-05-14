@@ -1,0 +1,49 @@
+{
+    "consumer": {
+        "name": "Consumer"
+    },
+    "provider": {
+        "name": "Provider"
+    },
+    "interactions": [
+        {
+            "description": "check access to the protected place",
+            "provider_state": "user is logged in",
+            "request": {
+                "method": "get",
+                "path": "/json/protected",
+                "query": ""
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": {
+                    "secret": "stuff"
+                }
+            }
+        },
+        {
+            "description": "check access to the unprotected place",
+            "provider_state": "user is not logged in",
+            "request": {
+                "method": "get",
+                "path": "/json/",
+                "query": ""
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": {
+                    "hello": "world"
+                }
+            }
+        }
+    ],
+    "metadata": {
+        "pactSpecificationVersion": "1.0.0"
+    }
+}
