@@ -2,7 +2,7 @@
 
 _This is a fork of the original demo, with added tests demonstrating how to write (controller) specs. Notably, this uses Warden Test Helpers to support the login of users before the call to authenticated methods. Furthermore, it demonstrates that the pre-authentication also works for the verification of the pacts (see the pact gem for details)._
 
-_This readme is copied from the original blog post [on my site](http://sklise.com/2013/03/08/sinatra-warden-auth/)._
+_This readme is copied from the original blog post [from his site](http://sklise.com/2013/03/08/sinatra-warden-auth/)._
 
 _UPDATE 5/18/2014, Switched from Rack::Flash to Sinatra/Flash and added instructions for launching the app._
 
